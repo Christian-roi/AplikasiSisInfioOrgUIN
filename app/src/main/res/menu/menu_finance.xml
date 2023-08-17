@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tambahPemasukan"
+        android:icon="@drawable/ic_exit"
+        android:title="Tambah Pemasukan" />
+    <item
+        android:id="@+id/tambahPengeluaran"
+        android:icon="@drawable/ic_exit"
+        android:title="Tambah Pengeluaran" />
+    <item
+        android:id="@+id/cetak"
+        android:icon="@drawable/ic_exit"
+        android:title="Cetak Laporan" />
+</menu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/rekrut"
+        android:icon="@drawable/ic_exit"
+        android:title="Rekrutmen Anggota" />
+    <item
+        android:id="@+id/absensi"
+        android:icon="@drawable/ic_exit"
+        android:title="Absensi" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_exit"
+        android:title="Keluar" />
+</menu>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/logoo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppUINSU"
+        tools:targetApi="31">
+        <activity
+            android:name=".KegiatanForm"
+            android:exported="false" />
+        <activity
+            android:name=".AbsenUserForm"
+            android:exported="false" />
+        <activity
+            android:name=".PengeluaranForm"
+            android:exported="false" />
+        <activity
+            android:name=".PemasukanForm"
+            android:exported="false" />
+        <activity
+            android:name=".AdminAbsensiPage"
+            android:exported="false" />
+        <activity
+            android:name=".AnggotaPage"
+            android:exported="false" />
+        <activity
+            android:name=".KegiatanPage"
+            android:exported="false" />
+        <activity
+            android:name=".FinancePage"
+            android:exported="false" />
+        <activity
+            android:name=".RecruitPage"
+            android:exported="false" />
+        <activity
+            android:name=".UserMenu"
+            android:exported="false" />
+        <activity
+            android:name=".AdminMenu"
+            android:exported="false" />
+        <activity
+            android:name=".LoginPage"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
