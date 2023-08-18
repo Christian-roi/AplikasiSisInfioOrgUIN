@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class AdminAbsensiPage extends AppCompatActivity {
+public class AnggotaApprovePage extends AppCompatActivity {
 
     ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_absensi_page);
-        setTitle("Absensi Anggota");
+        setContentView(R.layout.activity_anggota_approve_page);
+        setTitle("Pendaftar Baru");
         actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -25,7 +25,7 @@ public class AdminAbsensiPage extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Intent back = new Intent(this, AdminMenu.class);
+        Intent back = new Intent(this, AnggotaPage.class);
         startActivity(back);
         finish();
     }

@@ -36,10 +36,11 @@ public class FinancePage extends AppCompatActivity {
             super.startActivity(tambah);
             return true;
         } else if (id == R.id.tambahPengeluaran) {
-            // Lakukan sesuatu saat Option 2 dipilih
+            Intent tambah = new Intent(FinancePage.this, PengeluaranForm.class);
+            super.startActivity(tambah);
             return true;
         }else if (id == R.id.cetak) {
-            // Lakukan sesuatu saat Option 2 dipilih
+            // Lakukan sesuatu saat Option 3 dipilih
             return true;
         }
 

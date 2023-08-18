@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:background="@drawable/bgmain2"
-    tools:context=".PengeluaranForm">
+    tools:context=".PemasukanForm">
 
     <ImageView
         android:layout_width="50dp"
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tambah Data Pengeluaran"
+        android:text="Tambah Data Pemasukan"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jenis Pengeluaran"
+        android:text="Nama Pemasukan"
         android:layout_marginTop="5dp"
         android:textColor="#000"
         android:textSize="14sp"
@@ -52,7 +52,7 @@
         android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/field_border"
         android:padding="10dp"
-        android:hint="Masukkan Jenis Pengeluaran"
+        android:hint="Masukkan Nama Pemasukan"
         android:maxLines="1"
         tools:ignore="Autofill,LabelFor" />
 
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Keterangan Pengeluaran"
+        android:text="Keterangan Pemasukan"
         android:textColor="#000"
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
@@ -76,14 +76,14 @@
         android:background="@drawable/field_border"
         android:padding="10dp"
         android:textSize="14sp"
-        android:hint="Masukkan Keterangan Pengeluaran"
+        android:hint="Masukkan Keterangan Pemasukan"
         tools:ignore="Autofill,LabelFor" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Nominal Pengeluaran (Rp.)"
+        android:text="Nominal Pemasukan (Rp.)"
         android:textColor="#000"
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
@@ -98,7 +98,7 @@
         android:background="@drawable/field_border"
         android:padding="10dp"
         android:textSize="14sp"
-        android:hint="Masukkan Nominal Pengeluaran"
+        android:hint="Masukkan Nominal Pemasukan"
         tools:ignore="Autofill,LabelFor" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -116,5 +116,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
+
 
 </LinearLayout>
