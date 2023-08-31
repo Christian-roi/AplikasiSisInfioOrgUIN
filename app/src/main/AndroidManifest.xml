@@ -12,6 +12,12 @@
         android:theme="@style/Theme.AppUINSU"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfilUser"
+            android:exported="false" />
+        <activity
+            android:name=".GuestPage"
+            android:exported="false" />
+        <activity
             android:name=".AnggotaApprovePage"
             android:exported="false" />
         <activity

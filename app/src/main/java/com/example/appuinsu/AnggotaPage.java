@@ -9,10 +9,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.example.appuinsu.adapter.AnggotaAdapter;
+import com.example.appuinsu.model.ModelAnggota;
+import com.example.appuinsu.model.ModelFinance;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AnggotaPage extends AppCompatActivity {
 
     ActionBar actionBar;
+    DatabaseHelper db;
+    ListView listView;
+    List<ModelAnggota> lists = new ArrayList<>();
+    AnggotaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +33,31 @@ public class AnggotaPage extends AppCompatActivity {
         setContentView(R.layout.activity_anggota_page);
         actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        db = new DatabaseHelper(this);
+        listView = findViewById(R.id.list_items);
+
+        adapter = new AnggotaAdapter(AnggotaPage.this, lists);
+        listView.setAdapter(adapter);
+        getData();
+    }
+
+    private void getData(){
+        ArrayList<HashMap<String, String >> rows = db.getAnggota();
+        for (int i = 0; i < rows.size(); i++){
+            String id = rows.get(i).get("id");
+            String nama = rows.get(i).get("nama");
+            ModelAnggota data = new ModelAnggota();
+            data.setId(id);
+            data.setNama(nama);
+            lists.add(data);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        lists.clear();
+        getData();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

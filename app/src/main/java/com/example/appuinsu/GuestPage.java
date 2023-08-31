@@ -9,22 +9,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class UserMenu extends AppCompatActivity {
+public class GuestPage extends AppCompatActivity {
 
-    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_menu);
-        db = new DatabaseHelper(this);
-        String savedUsername = db.getLoggedInUserId();
+        setContentView(R.layout.activity_guest_page);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main_user, menu);
-        return true;
+        MenuInflater inflater  = getMenuInflater();
+        inflater.inflate(R.menu.menu_guest, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -32,34 +29,23 @@ public class UserMenu extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.rekrut) {
-            Intent rekrut = new Intent(UserMenu.this, RecruitPage.class);
+            Intent rekrut = new Intent(GuestPage.this, RecruitPage.class);
             super.startActivity(rekrut);
             return true;
-        } else if (id == R.id.absensi) {
-            Intent absen = new Intent(UserMenu.this, AbsenUserForm.class);
-            super.startActivity(absen);
-            return true;
-        } else if (id == R.id.profil) {
-            Intent profil = new Intent(UserMenu.this, EditProfilUser.class);
-            super.startActivity(profil);
-            return true;
         } else if (id == R.id.logout) {
-            Intent keluar = new Intent(UserMenu.this, LoginPage.class);
+            Intent keluar = new Intent(GuestPage.this, LoginPage.class);
             super.startActivity(keluar);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
     public void onBackPressed() {
-        Intent keluar = new Intent(UserMenu.this, LoginPage.class);
+        Intent keluar = new Intent(GuestPage.this, LoginPage.class);
         super.startActivity(keluar);
         finish();
     }
