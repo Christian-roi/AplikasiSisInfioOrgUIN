@@ -28,10 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE session(id interger PRIMARY KEY, login text)");
         db.execSQL("CREATE TABLE tb_anggota(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, username text, password text, role text)");
         db.execSQL("CREATE TABLE tb_keuangan(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, keterangan text, nominal text, jenis text)");
-        db.execSQL("CREATE TABLE tb_kegiatan(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, waktu text, tempat text, deskripsi text, foto BLOB)");
+        db.execSQL("CREATE TABLE tb_kegiatan(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, waktu text, tempat text, deskripsi text, foto text)");
         db.execSQL("CREATE TABLE tb_absensi(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, waktu text, status text)");
         db.execSQL("INSERT INTO session(id, login) VALUES (1,'kosong')");
-        db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (1,'Admin Organisasi','adminaplikasi', '12345', 'admin')");
+        db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (1,'Admin Organisasi','admin', '123', 'admin')");
         db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (2,'Pengguna Satu','user123', '12345', 'anggota')");
     }
 
@@ -142,6 +142,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
+    public boolean updateUser(String id, String nama, String username, String password, String role) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nama", nama);
+        values.put("username", username);
+        values.put("password",password);
+        values.put("role",role);
+        int rowsAffected = db.update("tb_anggota", values, "id" + "=?", new String[]{id});
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+    public boolean updateKeuangan(String id, String nama, String keterangan, String nominal, String jenis) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nama", nama);
+        values.put("keterangan", keterangan);
+        values.put("nominal",nominal);
+        values.put("jenis",jenis);
+        int rowsAffected = db.update("tb_keuangan", values, "id" + "=?", new String[]{id});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    public boolean updateKegiatan(String id, String nama, String waktu, String tempat, String deskripsi, String foto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("nama", nama);
+        contentValues.put("waktu", waktu);
+        contentValues.put("tempat",tempat);
+        contentValues.put("deskripsi",deskripsi);
+        contentValues.put("foto",foto);
+        int rowsAffected = db.update("tb_kegiatan", contentValues, "id" + "=?", new String[]{id});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+
     public int getRowCount(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + tableName, null);
@@ -185,6 +224,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public boolean insertKegiatan(String nama, String waktu, String tempat, String deskripsi, String foto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("nama", nama);
+        contentValues.put("waktu", waktu);
+        contentValues.put("tempat",tempat);
+        contentValues.put("deskripsi",deskripsi);
+        contentValues.put("foto",foto);
+        long insert = db.insert("tb_kegiatan", null, contentValues);
+        if (insert == -1){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
 
     public double getTotalPemasukanByJenis(String jenis) {
         double total = 0;
@@ -262,6 +319,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+
+    public Cursor getAllKegiatan() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT id AS _id, nama, waktu, tempat, deskripsi, foto FROM tb_kegiatan";
+        return db.rawQuery(query, null);
+    }
+
+
+
+    public void deleteDataById(String tableName, long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(tableName, "id" + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public String getRoleById(int id) {
+        String role = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {"role"}; // Nama kolom yang akan diambil
+        String selection = "id = ?"; // Kondisi WHERE
+        String[] selectionArgs = {String.valueOf(id)}; // Nilai yang akan dibandingkan dengan ? pada kondisi WHERE
+
+        Cursor cursor = db.query("tb_anggota", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+            cursor.close();
+        }
+
+        db.close();
+        return role;
+    }
+
+    public String getUsername(int id) {
+        String username = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {"username"}; // Nama kolom yang akan diambil
+        String selection = "id = ?"; // Kondisi WHERE
+        String[] selectionArgs = {String.valueOf(id)}; // Nilai yang akan dibandingkan dengan ? pada kondisi WHERE
+
+        Cursor cursor = db.query("tb_anggota", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            cursor.close();
+        }
+
+        db.close();
+        return username;
+    }
+    public String getJenis(int id) {
+        String jenis = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {"jenis"}; // Nama kolom yang akan diambil
+        String selection = "id = ?"; // Kondisi WHERE
+        String[] selectionArgs = {String.valueOf(id)}; // Nilai yang akan dibandingkan dengan ? pada kondisi WHERE
+
+        Cursor cursor = db.query("tb_keuangan", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            jenis = cursor.getString(cursor.getColumnIndexOrThrow("jenis"));
+            cursor.close();
+        }
+
+        db.close();
+        return jenis;
     }
 
     private double convertToDouble(String text) {

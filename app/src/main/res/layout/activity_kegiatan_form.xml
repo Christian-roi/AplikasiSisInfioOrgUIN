@@ -56,7 +56,7 @@
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:id="@+id/etUserid"
+        android:id="@+id/etWaktu"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -79,6 +79,7 @@
         tools:ignore="HardcodedText" />
 
     <EditText
+        android:id="@+id/etTempat"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -101,6 +102,7 @@
         tools:ignore="HardcodedText" />
 
     <EditText
+        android:id="@+id/etDesk"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -113,8 +115,8 @@
         android:hint="Masukkan Deskripsi"
         tools:ignore="Autofill,LabelFor" />
 
-
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btUpload"
         android:layout_width="165dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -127,8 +129,15 @@
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:id="@+id/preview"/>
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btRegister"
+        android:id="@+id/btSubmit"
         android:layout_width="165dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -142,21 +151,5 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
-
-    <!--    <androidx.appcompat.widget.AppCompatButton-->
-    <!--        android:id="@+id/btLogin"-->
-    <!--        android:layout_width="165dp"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:background="@drawable/danger_button"-->
-    <!--        android:text="Kembali"-->
-    <!--        android:padding="10dp"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:textColor="#FFF"-->
-    <!--        android:drawableLeft="@drawable/ic_exit"-->
-    <!--        android:textSize="16sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        tools:ignore="HardcodedText" />-->
 
 </LinearLayout>

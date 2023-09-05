@@ -7,22 +7,12 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:background="@drawable/bgmain2"
-    tools:context=".AnggotaAdminForm">
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:adjustViewBounds="true"
-        android:fitsSystemWindows="true"
-        android:src="@drawable/logoo"
-        tools:ignore="ContentDescription" />
+    tools:context=".AdminDetailKegiatan">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tambah Anggota Baru"
+        android:text="Form Detail Kegiatan"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:textStyle="bold"
@@ -35,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nama Lengkap"
+        android:text="Judul Kegiatan"
         android:layout_marginTop="5dp"
         android:textColor="#000"
         android:textSize="14sp"
@@ -52,7 +42,7 @@
         android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/field_border"
         android:padding="10dp"
-        android:hint="Masukkan Nama Lengkap Anda"
+        android:hint="Masukkan Judul Kegiatan"
         android:maxLines="1"
         tools:ignore="Autofill,LabelFor" />
 
@@ -60,13 +50,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Username"
+        android:text="Waktu dan Tanggal Kegiatan"
         android:textColor="#000"
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etWaktu"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -76,86 +66,114 @@
         android:background="@drawable/field_border"
         android:padding="10dp"
         android:textSize="14sp"
-        android:hint="Masukkan Username Anda"
+        android:hint="Masukkan Waktu/Tanggal [cth: 01 Januari 2023]"
         tools:ignore="Autofill,LabelFor" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Password"
+        android:text="Tempat Kegiatan"
         android:textColor="#000"
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etTempat"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:inputType="text"
-        android:editable="false"
         android:textColor="#000"
         android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/field_border"
         android:padding="10dp"
         android:textSize="14sp"
-        android:hint="Masukkan Password Anda"
+        android:hint="Masukkan Tempat Kegiatan"
         tools:ignore="Autofill,LabelFor" />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:text="Konfirmasi Password"-->
-<!--        android:textColor="#000"-->
-<!--        android:textSize="14sp"-->
-<!--        tools:ignore="HardcodedText" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Deskripsi Kegiatan"
+        android:textColor="#000"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/etKonfirmPass"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:inputType="textPassword"-->
-<!--        android:textColor="#000"-->
-<!--        android:textColorHint="@android:color/darker_gray"-->
-<!--        android:background="@drawable/field_border"-->
-<!--        android:padding="10dp"-->
-<!--        android:textSize="14sp"-->
-<!--        android:hint="Ulangi Password Anda"-->
-<!--        tools:ignore="Autofill,LabelFor" />-->
+    <EditText
+        android:id="@+id/etDesk"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:inputType="text"
+        android:textColor="#000"
+        android:textColorHint="@android:color/darker_gray"
+        android:background="@drawable/field_border"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:hint="Masukkan Deskripsi"
+        tools:ignore="Autofill,LabelFor" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDaftar"
+        android:id="@+id/btUpload"
         android:layout_width="165dp"
         android:layout_height="40dp"
-        android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@drawable/primary_button"
-        android:text="Daftar"
+        android:background="@drawable/success_button"
+        android:text="Upload Foto"
         android:padding="10dp"
-        android:drawableLeft="@drawable/ic_login"
         android:textColor="#FFF"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
-    <!--    <androidx.appcompat.widget.AppCompatButton-->
-    <!--        android:id="@+id/btLogin"-->
-    <!--        android:layout_width="165dp"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_marginTop="20dp"-->
-    <!--        android:background="@drawable/danger_button"-->
-    <!--        android:text="Kembali"-->
-    <!--        android:padding="10dp"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:textColor="#FFF"-->
-    <!--        android:drawableLeft="@drawable/ic_exit"-->
-    <!--        android:textSize="16sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        tools:ignore="HardcodedText" />-->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:id="@+id/preview"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEdit"
+            android:layout_width="165dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/primary_button"
+            android:text="Edit Data"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_edit"
+            android:textColor="#FFF"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDelete"
+            android:layout_width="165dp"
+            android:layout_height="40dp"
+            android:background="@drawable/danger_button"
+            android:text="Hapus Data"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:textColor="#FFF"
+            android:drawableLeft="@drawable/ic_hapus"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
 
 </LinearLayout>

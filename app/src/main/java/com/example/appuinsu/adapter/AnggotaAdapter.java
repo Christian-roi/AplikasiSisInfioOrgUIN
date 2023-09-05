@@ -53,6 +53,13 @@ public class AnggotaAdapter extends BaseAdapter {
             TextView nama = view.findViewById(R.id.nama);
             ModelAnggota modelAnggota = lists.get(i);
             nama.setText(modelAnggota.getNama());
+            if(modelAnggota.getRole() != null && modelAnggota.getRole().equals("admin")){
+                Drawable drawable = view.getResources().getDrawable(R.drawable.ic_admin2);
+                nama.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+            } else if (modelAnggota.getRole() != null && modelAnggota.getRole().equals("anggota")){
+                Drawable drawable = view.getResources().getDrawable(R.drawable.ic_user_white);
+                nama.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+            }
         }
         return view;
     }

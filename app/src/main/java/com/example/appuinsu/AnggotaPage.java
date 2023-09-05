@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.appuinsu.adapter.AnggotaAdapter;
@@ -31,6 +33,7 @@ public class AnggotaPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anggota_page);
+        setTitle("Kelola Anggota");
         actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = new DatabaseHelper(this);
@@ -39,6 +42,16 @@ public class AnggotaPage extends AppCompatActivity {
         adapter = new AnggotaAdapter(AnggotaPage.this, lists);
         listView.setAdapter(adapter);
         getData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String idx = lists.get(position).getId();
+                Intent intent = new Intent(getApplicationContext(), AdminDetailUser.class);
+                intent.putExtra("id", Integer.parseInt(idx));
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData(){
@@ -46,9 +59,11 @@ public class AnggotaPage extends AppCompatActivity {
         for (int i = 0; i < rows.size(); i++){
             String id = rows.get(i).get("id");
             String nama = rows.get(i).get("nama");
+            String role = rows.get(i).get("role");
             ModelAnggota data = new ModelAnggota();
             data.setId(id);
             data.setNama(nama);
+            data.setRole(role);
             lists.add(data);
         }
         adapter.notifyDataSetChanged();
@@ -75,6 +90,10 @@ public class AnggotaPage extends AppCompatActivity {
             return true;
         } else if (id == R.id.baru) {
             Intent list = new Intent(AnggotaPage.this, AnggotaApprovePage.class);
+            super.startActivity(list);
+            return true;
+        } else if (id == R.id.addAdmin) {
+            Intent list = new Intent(AnggotaPage.this, AddAdmin.class);
             super.startActivity(list);
             return true;
         }

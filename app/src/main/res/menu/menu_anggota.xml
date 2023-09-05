@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_exit"
         android:title="Tambah Anggota" />
     <item
+        android:id="@+id/addAdmin"
+        android:icon="@drawable/ic_exit"
+        android:title="Tambah Akun Admin" />
+    <item
         android:id="@+id/baru"
         android:icon="@drawable/ic_exit"
         android:title="Persetujuan Anggota Baru" />

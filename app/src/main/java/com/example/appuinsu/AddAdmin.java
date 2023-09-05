@@ -10,16 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AnggotaAdminForm extends AppCompatActivity {
+public class AddAdmin extends AppCompatActivity {
 
     ActionBar actionBar;
     DatabaseHelper db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anggota_admin_form);
-        actionBar = getSupportActionBar();
+        setContentView(R.layout.activity_add_admin);
         db = new DatabaseHelper(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         EditText nama = findViewById(R.id.etNama);
@@ -27,16 +25,13 @@ public class AnggotaAdminForm extends AppCompatActivity {
         EditText password = findViewById(R.id.etPassword);
         Button daftar = findViewById(R.id.btnDaftar);
 
-        password.setText("12345");
-        password.setEnabled(false);
-
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String strNama = nama.getText().toString();
                 String strUsername = username.getText().toString();
                 String strPass = password.getText().toString();
-                String role = "anggota";
+                String role = "admin";
 
                 if(strNama.trim().isEmpty() || strUsername.trim().isEmpty() || strPass.trim().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Harap isi seluruh data yang diminta!", Toast.LENGTH_SHORT).show();
@@ -45,20 +40,21 @@ public class AnggotaAdminForm extends AppCompatActivity {
                     if(!ada){
                         boolean registered = db.insertAnggota(strNama, strUsername, strPass, role);
                         if(registered == true){
-                            Toast.makeText(getApplicationContext(), "Berhasil Tambah Anggota", Toast.LENGTH_SHORT).show();
-                            Intent loginIntent = new Intent(AnggotaAdminForm.this, AnggotaPage.class);
+                            Toast.makeText(getApplicationContext(), "Berhasil Tambah Admin", Toast.LENGTH_SHORT).show();
+                            Intent loginIntent = new Intent(getApplicationContext(), AnggotaPage.class);
                             startActivity(loginIntent);
                             finish();
                         }else{
                             Toast.makeText(getApplicationContext(), "Tambah Anggota Gagal", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Username anda sudah terpakai/terdaftar.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Username admin sudah terpakai/terdaftar.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
+        password.setText("12345");
     }
 
     public boolean onSupportNavigateUp() {

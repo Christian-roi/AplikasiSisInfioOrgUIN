@@ -2,8 +2,11 @@ package com.example.appuinsu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +25,7 @@ public class AdminMenu extends AppCompatActivity {
         anggota = findViewById(R.id.btnAnggota);
         absensi = findViewById(R.id.btnAbsensi);
         Button logout = findViewById(R.id.btnKeluar);
+
 
         keuangan.setOnClickListener(new View.OnClickListener() {
             @Override

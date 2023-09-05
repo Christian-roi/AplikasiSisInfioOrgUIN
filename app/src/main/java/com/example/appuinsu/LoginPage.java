@@ -2,9 +2,12 @@ package com.example.appuinsu;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,9 @@ public class LoginPage extends AppCompatActivity {
         Button guest = findViewById(R.id.btGuest);
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
+
+        ActivityCompat.requestPermissions(LoginPage.this, new String[]{
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

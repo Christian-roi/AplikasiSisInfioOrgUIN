@@ -4,10 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.example.appuinsu.adapter.KegiatanAdapter;
 
 public class UserMenu extends AppCompatActivity {
 
@@ -18,6 +24,17 @@ public class UserMenu extends AppCompatActivity {
         setContentView(R.layout.activity_user_menu);
         db = new DatabaseHelper(this);
         String savedUsername = db.getLoggedInUserId();
+        ListView listView = findViewById(R.id.list_item);
+        Cursor cursor = db.getAllKegiatan();
+        KegiatanAdapter adapter = new KegiatanAdapter(this, cursor);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     @Override

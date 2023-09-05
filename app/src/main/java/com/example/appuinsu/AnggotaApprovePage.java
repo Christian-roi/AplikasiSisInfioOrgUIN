@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.appuinsu.adapter.AnggotaAdapter;
@@ -35,6 +37,16 @@ public class AnggotaApprovePage extends AppCompatActivity {
         adapter = new AnggotaAdapter(AnggotaApprovePage.this, lists);
         listView.setAdapter(adapter);
         getData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String idx = lists.get(position).getId();
+                Intent intent = new Intent(AnggotaApprovePage.this, ApprovePage.class);
+                intent.putExtra("id", Integer.parseInt(idx));
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData(){

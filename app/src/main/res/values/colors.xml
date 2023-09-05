@@ -14,4 +14,5 @@
     <color name="cpanel2">#488b95</color>
     <color name="cpanel3">#5d8700</color>
     <color name="cpanel4">#928200</color>
+    <color name="transparan">#00FFFFFF</color>
 </resources>

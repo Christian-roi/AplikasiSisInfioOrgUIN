@@ -3,12 +3,15 @@ package com.example.appuinsu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +53,43 @@ public class FinancePage extends AppCompatActivity {
         adapter = new FinanceAdapter(FinancePage.this, lists);
         listView.setAdapter(adapter);
         getData();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String idx = lists.get(position).getId();
+                Intent intent = new Intent(getApplicationContext(), AdminDetailKeuangan.class);
+                intent.putExtra("id", Integer.parseInt(idx));
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+
+        // Set item click listener untuk PopupMenu
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.edit:
+                        // Tindakan untuk Option 1
+                        return true;
+                    case R.id.delete:
+                        // Tindakan untuk Option 2
+                        return true;
+                    // Handle opsi-opsi lain jika diperlukan
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popupMenu.show();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

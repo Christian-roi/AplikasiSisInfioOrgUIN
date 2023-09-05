@@ -1,20 +1,44 @@
 package com.example.appuinsu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.example.appuinsu.adapter.KegiatanAdapter;
 
 public class GuestPage extends AppCompatActivity {
+    DatabaseHelper db;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_page);
+        actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        db = new DatabaseHelper(this);
+        ListView listView = findViewById(R.id.list_item);
+        Cursor cursor = db.getAllKegiatan();
+        KegiatanAdapter adapter = new KegiatanAdapter(this, cursor);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
     }
 
     @Override
@@ -42,6 +66,11 @@ public class GuestPage extends AppCompatActivity {
 
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
     public void onBackPressed() {

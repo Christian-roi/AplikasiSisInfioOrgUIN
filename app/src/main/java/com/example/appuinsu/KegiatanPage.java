@@ -5,14 +5,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.appuinsu.adapter.KegiatanAdapter;
 
 public class KegiatanPage extends AppCompatActivity {
 
     ActionBar actionBar;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +29,23 @@ public class KegiatanPage extends AppCompatActivity {
         setContentView(R.layout.activity_kegiatan_page);
         actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        db = new DatabaseHelper(this);
+        ListView listView = findViewById(R.id.list_item);
+        Cursor cursor = db.getAllKegiatan();
+        KegiatanAdapter adapter = new KegiatanAdapter(this, cursor);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                int idx = (int) view.getTag();
+                Intent intent = new Intent(getApplicationContext(), AdminDetailKegiatan.class);
+                intent.putExtra("id", idx);
+                startActivity(intent);
+                //Toast.makeText(KegiatanPage.this, "Ini Post dengan ID: "+idx, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public boolean onSupportNavigateUp() {
