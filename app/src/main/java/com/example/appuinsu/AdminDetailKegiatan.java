@@ -30,7 +30,9 @@ public class AdminDetailKegiatan extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
     private ImageView imageView;
+
     String imagePath = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,6 @@ public class AdminDetailKegiatan extends AppCompatActivity {
         Button edit = findViewById(R.id.btnEdit);
         Button delete = findViewById(R.id.btnDelete);
         imageView = findViewById(R.id.preview);
-
         int idx = getIntent().getIntExtra("id",0);
         String query = "SELECT * FROM tb_kegiatan WHERE id = " +idx;
         Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
@@ -84,14 +85,27 @@ public class AdminDetailKegiatan extends AppCompatActivity {
                 String waktu = etWaktu.getText().toString();
                 String tempat = etTempat.getText().toString();
                 String deskripsi = etDesk.getText().toString();
-                boolean result = db.updateKegiatan(String.valueOf(idx), judul, waktu, tempat, deskripsi, imagePath);
-                if(result == true){
-                    Toast.makeText(getApplicationContext(), "Kegiatan Berhasil diubah", Toast.LENGTH_SHORT).show();
-                    Intent success = new Intent(getApplicationContext(), KegiatanPage.class);
-                    startActivity(success);
-                    finish();
+                if(imagePath.isEmpty()){
+                    imagePath = db.getFotoUri(idx);
+                    boolean result = db.updateKegiatan(String.valueOf(idx), judul, waktu, tempat, deskripsi, imagePath);
+                    if(result == true){
+                        Toast.makeText(getApplicationContext(), "Kegiatan Berhasil diubah", Toast.LENGTH_SHORT).show();
+                        Intent success = new Intent(getApplicationContext(), KegiatanPage.class);
+                        startActivity(success);
+                        finish();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Upload Gagal", Toast.LENGTH_SHORT).show();
+                    }
                 }else {
-                    Toast.makeText(getApplicationContext(), "Upload Gagal", Toast.LENGTH_SHORT).show();
+                    boolean result = db.updateKegiatan(String.valueOf(idx), judul, waktu, tempat, deskripsi, imagePath);
+                    if(result == true){
+                        Toast.makeText(getApplicationContext(), "Kegiatan Berhasil diubah", Toast.LENGTH_SHORT).show();
+                        Intent success = new Intent(getApplicationContext(), KegiatanPage.class);
+                        startActivity(success);
+                        finish();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Upload Gagal", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

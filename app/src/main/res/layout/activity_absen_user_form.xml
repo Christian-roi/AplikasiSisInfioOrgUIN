@@ -65,21 +65,43 @@
         android:textSize="14sp"
         tools:ignore="HardcodedText" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner"
-        android:background="@drawable/field_border"
+    <RadioGroup
+        android:id="@+id/radioGrup"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/hadir"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hadir"/>
+        <RadioButton
+            android:id="@+id/sakit"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sakit"/>
+        <RadioButton
+            android:id="@+id/izin"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Izin"/>
+
+    </RadioGroup>
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btRegister"
+        android:id="@+id/btAbsen"
         android:layout_width="165dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/primary_button"
-        android:text="Kirim"
+        android:text="Kirim Absen"
         android:padding="10dp"
         android:drawableLeft="@drawable/ic_login"
         android:textColor="#FFF"

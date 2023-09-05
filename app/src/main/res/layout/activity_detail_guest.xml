@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgmain2"
+    tools:context=".DetailGuest">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/judul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kegiatan Dakwah Bersama ke Berastagi"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            tools:ignore="HardcodedText" />
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="385dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/foto1"
+            android:scaleType="centerCrop"
+            android:layout_marginVertical="20dp"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waktu dan Tempat"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/timeplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kegiatan Dakwah Bersama ke Berastagi"
+            android:padding="5dp"
+            android:textColor="#FFF"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keterangan"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/deskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kegiatan Dakwah Bersama ke Berastagi"
+            android:padding="5dp"
+            android:textColor="#FFF"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+</ScrollView>

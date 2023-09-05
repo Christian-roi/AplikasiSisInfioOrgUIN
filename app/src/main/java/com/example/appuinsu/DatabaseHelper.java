@@ -391,6 +391,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return jenis;
     }
 
+    public String getFotoUri(int id) {
+        String imagePath = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {"foto"}; // Nama kolom yang akan diambil
+        String selection = "id = ?"; // Kondisi WHERE
+        String[] selectionArgs = {String.valueOf(id)}; // Nilai yang akan dibandingkan dengan ? pada kondisi WHERE
+
+        Cursor cursor = db.query("tb_kegiatan", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            imagePath = cursor.getString(cursor.getColumnIndexOrThrow("foto"));
+            cursor.close();
+        }
+
+        db.close();
+        return imagePath;
+    }
+
     private double convertToDouble(String text) {
         try {
             return Double.parseDouble(text.replace(",", "")); // Hapus tanda koma jika ada

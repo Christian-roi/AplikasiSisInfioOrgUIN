@@ -31,8 +31,11 @@ public class UserMenu extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                int idx = (int) view.getTag();
+                Intent intent = new Intent(getApplicationContext(), DetailUser.class);
+                intent.putExtra("id", idx);
+                startActivity(intent);
             }
         });
     }
