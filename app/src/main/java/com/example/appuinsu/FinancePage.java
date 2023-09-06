@@ -88,7 +88,6 @@ public class FinancePage extends AppCompatActivity {
                 }
             }
         });
-
         popupMenu.show();
     }
 
@@ -111,10 +110,9 @@ public class FinancePage extends AppCompatActivity {
             super.startActivity(tambah);
             return true;
         }else if (id == R.id.cetak) {
-            // Lakukan sesuatu saat Option 3 dipilih
+            // Fungsi Cetak Pdf
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

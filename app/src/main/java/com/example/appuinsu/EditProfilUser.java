@@ -30,6 +30,7 @@ public class EditProfilUser extends AppCompatActivity {
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
         Button ubah = findViewById(R.id.btnEdit);
+        Button batal = findViewById(R.id.btnBatal);
 
         if(userData != null){
             nama.setText(userData.getValueNama());
@@ -63,6 +64,15 @@ public class EditProfilUser extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Username anda sudah terpakai/terdaftar.", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent back = new Intent(getApplicationContext(), UserMenu.class);
+                startActivity(back);
+                finish();
             }
         });
 

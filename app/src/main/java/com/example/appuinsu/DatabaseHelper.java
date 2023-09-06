@@ -6,18 +6,23 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.service.autofill.UserData;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "app.db";
+    //private static final String DB_NAME = "production.db";
     private static final int DB_VERSION = 1;
     private static final String PREF_USER_ID = "username";
     private SharedPreferences sharedPreferences;
 
+    Date currentDate = new Date();
     public DatabaseHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
         sharedPreferences = context.getSharedPreferences("username", Context.MODE_PRIVATE);
@@ -32,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE tb_absensi(id INTEGER PRIMARY KEY AUTOINCREMENT, nama text, waktu text, status text)");
         db.execSQL("INSERT INTO session(id, login) VALUES (1,'kosong')");
         db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (1,'Admin Organisasi','admin', '123', 'admin')");
-        db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (2,'Pengguna Satu','user123', '12345', 'anggota')");
+        db.execSQL("INSERT INTO tb_anggota(id, nama, username, password, role) VALUES (2,'User Organisasi','user123', '12345', 'anggota')");
     }
 
     @Override
@@ -241,7 +246,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    public Boolean insertAbsen(String nama, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(currentDate);
+        contentValues.put("nama", nama);
+        contentValues.put("waktu", formattedDate);
+        contentValues.put("status", status);
+        long insert = db.insert("tb_absensi", null, contentValues);
+        if (insert == -1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
     public double getTotalPemasukanByJenis(String jenis) {
         double total = 0;
@@ -327,7 +347,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-
+    public ArrayList<HashMap<String, String>> getAbsen(){
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM tb_absensi ORDER BY id DESC LIMIT 150",null);
+        if(cursor.moveToFirst()){
+            do{
+                HashMap<String, String> map = new HashMap<>();
+                map.put("id", cursor.getString(0));
+                map.put("nama", cursor.getString(1));
+                map.put("waktu", cursor.getString(2));
+                map.put("status", cursor.getString(3));
+                list.add(map);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
 
     public void deleteDataById(String tableName, long id) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -338,18 +374,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getRoleById(int id) {
         String role = "";
         SQLiteDatabase db = this.getReadableDatabase();
-
         String[] columns = {"role"}; // Nama kolom yang akan diambil
         String selection = "id = ?"; // Kondisi WHERE
         String[] selectionArgs = {String.valueOf(id)}; // Nilai yang akan dibandingkan dengan ? pada kondisi WHERE
-
         Cursor cursor = db.query("tb_anggota", columns, selection, selectionArgs, null, null, null);
-
         if (cursor != null && cursor.moveToFirst()) {
             role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
             cursor.close();
         }
-
         db.close();
         return role;
     }
@@ -408,6 +440,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
         return imagePath;
+    }
+
+    public boolean hasAttendanceForDate(String waktu, String nama) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        boolean result = false;
+
+        String date = waktu.substring(0, 10);
+        // Query ke database untuk mencari catatan absen berdasarkan tanggal dan ID pengguna
+        String query = "SELECT * FROM tb_absensi WHERE waktu LIKE ? AND nama = ?";
+        String tanggalYangDicari = date+"%"; // Ganti dengan tanggal yang diinginkan, % digunakan sebagai wildcard
+        Cursor cursor = db.rawQuery(query, new String[]{tanggalYangDicari, nama});
+
+        // Jika cursor memiliki data, artinya sudah ada catatan absen
+        if (cursor.moveToFirst()) {
+            result = true;
+        }
+
+        // Tutup cursor dan database
+        cursor.close();
+        db.close();
+
+        return result;
+    }
+
+    public String getWaktuAbsensiHariIniByUsername(String username) {
+        String currentTime = getCurrentDateTime(); // Fungsi ini akan mengembalikan tanggal dan waktu saat ini dalam format "yyyy-MM-dd HH:mm:ss".
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String tanggalYangDicari = currentTime+"%";
+
+        String query = "SELECT * FROM tb_absensi WHERE waktu LIKE ? AND nama = ? ORDER BY id DESC LIMIT 1";
+
+        Cursor cursor = db.rawQuery(query, new String[]{tanggalYangDicari, username});
+
+        String waktuAbsen = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            waktuAbsen = cursor.getString(cursor.getColumnIndexOrThrow("waktu"));
+
+        }
+        cursor.close();
+
+        // Ubah format waktu ke "HH:mm"
+        if (waktuAbsen != null) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = sdf.parse(waktuAbsen);
+                SimpleDateFormat newSdf = new SimpleDateFormat("HH:mm");
+                waktuAbsen = newSdf.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        db.close();
+
+        return waktuAbsen;
+    }
+
+    private String getCurrentDateTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
     private double convertToDouble(String text) {
